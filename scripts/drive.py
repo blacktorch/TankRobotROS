@@ -6,6 +6,7 @@ from geometry_msgs.msg import Twist
 
 
 def perform_drive(data):
+    print(data.linear.x)
     if not data.angular.z:
         if -0.5 <= data.linear.x <= 0.5:
             if data.linear.x == 0.0:
