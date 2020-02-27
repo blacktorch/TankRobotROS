@@ -98,6 +98,7 @@ def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1
     if direction == 'forward':
         if turn == 'left':
             motor_left(0, left_backward, int(speed*radius))
+            print(int(speed*radius))
             motor_right(1, right_forward, speed)
         elif turn == 'right':
             motor_left(1, left_forward, speed)
