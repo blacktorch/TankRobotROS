@@ -23,7 +23,7 @@ def remote_server():
             print("connected to: {}".format(addr))
 
             while True:
-                data = conn.recv(20)
+                data = conn.recv(1024)
                 if not data:
                     break
                 message = str(data)
