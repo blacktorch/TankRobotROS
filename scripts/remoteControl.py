@@ -26,7 +26,7 @@ def remote_server():
                 data = conn.recv(1024)
                 if not data:
                     break
-                message = str(data)
+                message = str(data).rstrip()
 
                 conn.send(bytes("Data received \n"))
         finally:
