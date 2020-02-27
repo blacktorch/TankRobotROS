@@ -9,7 +9,7 @@ from geometry_msgs.msg import Twist
 message = "0.0,0.0"
 
 
-def remote_server(sema):
+def remote_server():
     global message
     message = "0.0,0.0"
 
@@ -23,27 +23,23 @@ def remote_server(sema):
             print("connected to: {}".format(addr))
 
             while True:
-                sema.acquire()
                 data = conn.recv(32)
                 if not data:
                     break
                 message = str(data)
 
                 conn.send(bytes("Data received \n"))
-                sema.release()
         finally:
             conn.close()
             print('client disconnected')
 
 
-def controller(sema):
+def controller():
     pub = rospy.Publisher('cmd_drive', Twist, queue_size=10)
     rate = rospy.Rate(5)
 
     while not rospy.is_shutdown():
         cmd_msg = Twist()
-
-        sema.acquire()
 
         params = message.split(",")
 
@@ -68,21 +64,16 @@ def controller(sema):
 
         rospy.loginfo(cmd_msg)
         pub.publish(cmd_msg)
-
-        sema.release()
         rate.sleep()
 
 
 def remote_controller():
     rospy.init_node('remoteDriveControl', anonymous=True)
 
-    controllerSemaphore = threading.Semaphore()
-    serverSemaphore = threading.Semaphore()
-
-    serverThread = threading.Thread(target=remote_server, args=serverSemaphore)
+    serverThread = threading.Thread(target=remote_server)
     serverThread.start()
 
-    controllerThread = threading.Thread(target=controller, args=controllerSemaphore)
+    controllerThread = threading.Thread(target=controller)
     controllerThread.start()
 
 
