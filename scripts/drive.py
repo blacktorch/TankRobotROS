@@ -27,16 +27,32 @@ def perform_drive(data):
                 move.motorStop()
             elif data.angular.z > 0.0 and data.linear.x > 0.0:
                 radius = valueMap(data.angular.z, 0.01, 4.25, 0.1, 1.0)
-                move.move(100, 'forward', 'left', radius)
+                if radius > 0.6:
+                    move.move(100, 'forward', 'left', radius)
+                else:
+                    speed = int(valueMap(data.linear.x, 0.01, 0.5, 0.0, 100.0))
+                    move.move(speed, 'forward', 'no', 1)
             elif data.angular.z < 0.0 < data.linear.x:
                 radius = valueMap(data.angular.z, -0.01, -4.25, 0.1, 1.0)
-                move.move(100, 'forward', 'right', radius)
+                if radius > 0.6:
+                    move.move(100, 'forward', 'right', radius)
+                else:
+                    speed = int(valueMap(data.linear.x, 0.01, 0.5, 0.0, 100.0))
+                    move.move(speed, 'forward', 'no', 1)
             elif data.angular.z > 0.0 > data.linear.x:
                 radius = valueMap(data.angular.z, 0.01, 4.25, 0.1, 1.0)
-                move.move(100, 'backward', 'left', radius)
+                if radius > 0.6:
+                    move.move(100, 'backward', 'left', radius)
+                else:
+                    speed = int(valueMap(data.linear.x, -0.01, -0.5, 0.0, 100.0))
+                    move.move(speed, 'backward', 'no', 1)
             elif data.angular.z < 0.0 and data.linear.x < 0.0:
                 radius = valueMap(data.angular.z, -0.01, -4.25, 0.1, 1.0)
-                move.move(100, 'backward', 'right', radius)
+                if radius > 0.6:
+                    move.move(100, 'backward', 'right', radius)
+                else:
+                    speed = int(valueMap(data.linear.x, -0.01, -0.5, 0.0, 100.0))
+                    move.move(speed, 'backward', 'no', 1)
             elif data.angular.z > 0.0:
                 speed = int(valueMap(data.angular.z, 0.01, 4.25, 0.0, 100.0))
                 move.move(speed, 'no', 'left', 1)
