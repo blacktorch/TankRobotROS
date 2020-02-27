@@ -62,7 +62,7 @@ def controller():
         else:
             cmd_msg.linear.x = 0.0
 
-        rospy.loginfo(cmd_msg)
+        # rospy.loginfo(cmd_msg)
         pub.publish(cmd_msg)
         rate.sleep()
 
