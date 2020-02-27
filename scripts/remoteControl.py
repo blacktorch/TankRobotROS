@@ -43,6 +43,9 @@ def controller():
 
         params = message.split(",")
 
+        if len(params) < 2:
+            continue
+
         print(params)
 
         z = float(params[0])
