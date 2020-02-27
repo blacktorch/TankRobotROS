@@ -26,19 +26,17 @@ def perform_drive(data):
             if data.angular.z == 0.0 and data.linear.x == 0.0:
                 move.motorStop()
             elif data.angular.z > 0.0 and data.linear.x > 0.0:
-                radius = int(valueMap(data.angular.z, 0.01, 4.25, 0.1, 1.0))
+                radius = valueMap(data.angular.z, 0.01, 4.25, 0.1, 1.0)
                 move.move(100, 'forward', 'left', radius)
             elif data.angular.z < 0.0 < data.linear.x:
-                radius = int(valueMap(data.angular.z, -0.01, -4.25, 0.1, 1.0))
+                radius = valueMap(data.angular.z, -0.01, -4.25, 0.1, 1.0)
                 move.move(100, 'forward', 'right', radius)
             elif data.angular.z > 0.0 > data.linear.x:
-                radius = int(valueMap(data.angular.z, 0.01, 4.25, 0.1, 1.0))
+                radius = valueMap(data.angular.z, 0.01, 4.25, 0.1, 1.0)
                 move.move(100, 'backward', 'left', radius)
             elif data.angular.z < 0.0 and data.linear.x < 0.0:
-                radius = int(valueMap(data.angular.z, -0.01, -4.25, 0.1, 1.0))
+                radius = valueMap(data.angular.z, -0.01, -4.25, 0.1, 1.0)
                 move.move(100, 'backward', 'right', radius)
-            elif data.angular.z == 0.0:
-                move.motorStop()
             elif data.angular.z > 0.0:
                 speed = int(valueMap(data.angular.z, 0.01, 4.25, 0.0, 100.0))
                 move.move(speed, 'no', 'left', 1)
