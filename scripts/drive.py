@@ -6,7 +6,7 @@ from geometry_msgs.msg import Twist
 
 
 def perform_drive(data):
-    print(data.linear.x)
+    # print(data.linear.x)
     if not data.angular.z:
         if -0.5 <= data.linear.x <= 0.5:
             if data.linear.x == 0.0:
@@ -44,6 +44,7 @@ def perform_drive(data):
             elif data.angular.z < 0.0 and data.linear.x < 0.0:
                 radius = int(valueMap(data.angular.z, -0.01, -4.25, 0.0, 1.0))
                 move.move(100, 'backward', 'right', radius)
+            print(radius)
         else:
             move.motorStop()
 
