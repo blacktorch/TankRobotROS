@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node name="drive" pkg="tank_control" type="drive.py" />
+	
+	<node name="remoteDriveControl" pkg="tank_control" type="remoteControl.py" />
+	
+</launch>
